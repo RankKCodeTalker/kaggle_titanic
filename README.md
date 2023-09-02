@@ -6,7 +6,7 @@ Titanic - Machine Learning from Disaster
 
 安装环境
 ```
-conda create kaggle -n python 3.10
+conda create -n kaggle python=3.10
 conda activate kaggle
 pip install numpy pandas matplotlib torch
 ```
