@@ -1,5 +1,6 @@
 import torch
 from torch import nn
+from torch.utils.data import TensorDataset, DataLoader
 
 
 class ModelForSimpleClassification(nn.Module):
@@ -24,3 +25,26 @@ class ModelForSimpleClassification(nn.Module):
         y = self.linear3(y)
         y = self.relu3(y)
         return y
+    
+
+def train(
+    model: ModelForSimpleClassification,
+    num_epochs: float,
+    batch_size: int,
+    train_features: torch.Tensor,
+    train_labels: torch.Tensor
+):
+    model.train()
+    dataset = TensorDataset(train_features, train_labels)
+    dataLoader = DataLoader(dataset, batch_size)
+    trainer = torch.optim.AdamW(model.parameters())
+    lossFunction = torch.nn.MSELoss()
+    for _ in range(num_epochs):
+        for x, label in dataLoader:
+            loss = lossFunction(model(x), label)
+            trainer.zero_grad()
+            loss.backward()
+            trainer.step()
+        l = loss(model(train_features), train_labels)
+        print(l)
+    model.eval()
