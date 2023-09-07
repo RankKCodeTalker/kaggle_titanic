@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 from torch.utils.data import TensorDataset, DataLoader
-from myutils import logger
+from myutils.logger import logger
 
 
 class ModelForSimpleClassification(nn.Module):
