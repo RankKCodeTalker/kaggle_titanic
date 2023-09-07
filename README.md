@@ -8,5 +8,5 @@ Titanic - Machine Learning from Disaster
 ```
 conda create -n kaggle python=3.10
 conda activate kaggle
-pip install numpy pandas matplotlib torch
+pip install numpy pandas matplotlib torch -i https://pypi.mirrors.ustc.edu.cn/simple
 ```

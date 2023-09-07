@@ -1,6 +1,7 @@
 import torch
 from torch import nn
 from torch.utils.data import TensorDataset, DataLoader
+from myutils import logger
 
 
 class ModelForSimpleClassification(nn.Module):
@@ -39,12 +40,12 @@ def train(
     dataLoader = DataLoader(dataset, batch_size)
     trainer = torch.optim.AdamW(model.parameters())
     lossFunction = torch.nn.MSELoss()
-    for _ in range(num_epochs):
+    for i in range(num_epochs):
         for x, label in dataLoader:
             loss = lossFunction(model(x), label)
             trainer.zero_grad()
             loss.backward()
             trainer.step()
         l = loss(model(train_features), train_labels)
-        print(l)
+        logger.info(f'第{i}个epoch，整体损失为{l}')
     model.eval()
